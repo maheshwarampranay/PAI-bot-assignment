@@ -1,34 +1,35 @@
 # Meet Robo: your friend
 
-# import necessary libraries
+# Import necessary libraries
 import io
 import random
-import string  # to process standard python strings
+import string
 import warnings
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+import nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import sent_tokenize, word_tokenize
+
+# Suppress warnings
 warnings.filterwarnings("ignore")
 
-import nltk
+# First-time setup – download required NLTK data
+nltk.download("punkt")
+nltk.download("wordnet")
+nltk.download("omw-1.4")
 
-nltk.download("punkt")  # Required for sent_tokenize
-nltk.download("wordnet")  # Required for lemmatization
-nltk.download("omw-1.4")  # Optional: For better lemmatizer results
-from nltk.stem import WordNetLemmatizer
-
-nltk.download("popular", quiet=True)  # for downloading packages
-
-# Reading in the corpus
+# Read the corpus
 with open("chatbot.txt", "r", encoding="utf8", errors="ignore") as fin:
     raw = fin.read().lower()
 
-# Tokenisation
-sent_tokens = nltk.sent_tokenize(raw)  # list of sentences
-word_tokens = nltk.word_tokenize(raw)  # list of words
+# Tokenize into sentences and words
+sent_tokens = sent_tokenize(raw)
+word_tokens = word_tokenize(raw)
 
-# Preprocessing
+# Lemmatization setup
 lemmer = WordNetLemmatizer()
 
 
@@ -40,10 +41,10 @@ remove_punct_dict = dict((ord(punct), None) for punct in string.punctuation)
 
 
 def LemNormalize(text):
-    return LemTokens(nltk.word_tokenize(text.lower().translate(remove_punct_dict)))
+    return LemTokens(word_tokenize(text.lower().translate(remove_punct_dict)))
 
 
-# Greeting inputs/outputs
+# Greetings
 GREETING_INPUTS = ("hello", "hi", "greetings", "sup", "what's up", "hey")
 GREETING_RESPONSES = [
     "hi",
@@ -51,7 +52,7 @@ GREETING_RESPONSES = [
     "*nods*",
     "hi there",
     "hello",
-    "I am glad! You are talking to me",
+    "I'm glad you're talking to me!",
 ]
 
 
@@ -62,10 +63,10 @@ def greeting(sentence):
             return random.choice(GREETING_RESPONSES)
 
 
-# Response generation
+# Generate response using TF-IDF + cosine similarity
 def response(user_response):
     robo_response = ""
-    temp_sent_tokens = sent_tokens.copy()  # do not alter original corpus
+    temp_sent_tokens = sent_tokens.copy()
     temp_sent_tokens.append(user_response)
     TfidfVec = TfidfVectorizer(tokenizer=LemNormalize, stop_words="english")
     tfidf = TfidfVec.fit_transform(temp_sent_tokens)
@@ -74,8 +75,9 @@ def response(user_response):
     flat = vals.flatten()
     flat.sort()
     req_tfidf = flat[-2]
+
     if req_tfidf == 0:
-        robo_response = "I am sorry! I don't understand you."
+        robo_response = "I'm sorry! I didn't understand that."
     else:
         robo_response = temp_sent_tokens[idx]
     return robo_response
@@ -99,7 +101,7 @@ while flag:
         print("ROBO: Bye! Take care..")
     elif user_response in ("thanks", "thank you"):
         flag = False
-        print("ROBO: You are welcome..")
+        print("ROBO: You're welcome!")
     else:
         greet = greeting(user_response)
         if greet is not None:
