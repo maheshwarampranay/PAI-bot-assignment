@@ -12,6 +12,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 warnings.filterwarnings("ignore")
 
 import nltk
+
+nltk.download("punkt")  # Required for sent_tokenize
+nltk.download("wordnet")  # Required for lemmatization
+nltk.download("omw-1.4")  # Optional: For better lemmatizer results
 from nltk.stem import WordNetLemmatizer
 
 nltk.download("popular", quiet=True)  # for downloading packages
