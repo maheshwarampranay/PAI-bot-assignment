@@ -8,7 +8,6 @@ import warnings
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import warnings
 
 warnings.filterwarnings("ignore")
 
@@ -17,18 +16,13 @@ from nltk.stem import WordNetLemmatizer
 
 nltk.download("popular", quiet=True)  # for downloading packages
 
-# uncomment the following only the first time
-# nltk.download('punkt') # first-time use only
-# nltk.download('wordnet') # first-time use only
-
-
 # Reading in the corpus
 with open("chatbot.txt", "r", encoding="utf8", errors="ignore") as fin:
     raw = fin.read().lower()
 
-# TOkenisation
-sent_tokens = nltk.sent_tokenize(raw)  # converts to list of sentences
-word_tokens = nltk.word_tokenize(raw)  # converts to list of words
+# Tokenisation
+sent_tokens = nltk.sent_tokenize(raw)  # list of sentences
+word_tokens = nltk.word_tokenize(raw)  # list of words
 
 # Preprocessing
 lemmer = WordNetLemmatizer()
@@ -45,15 +39,8 @@ def LemNormalize(text):
     return LemTokens(nltk.word_tokenize(text.lower().translate(remove_punct_dict)))
 
 
-# Keyword Matching
-GREETING_INPUTS = (
-    "hello",
-    "hi",
-    "greetings",
-    "sup",
-    "what's up",
-    "hey",
-)
+# Greeting inputs/outputs
+GREETING_INPUTS = ("hello", "hi", "greetings", "sup", "what's up", "hey")
 GREETING_RESPONSES = [
     "hi",
     "hey",
@@ -71,43 +58,47 @@ def greeting(sentence):
             return random.choice(GREETING_RESPONSES)
 
 
-# Generating response
+# Response generation
 def response(user_response):
     robo_response = ""
-    sent_tokens.append(user_response)
+    temp_sent_tokens = sent_tokens.copy()  # do not alter original corpus
+    temp_sent_tokens.append(user_response)
     TfidfVec = TfidfVectorizer(tokenizer=LemNormalize, stop_words="english")
-    tfidf = TfidfVec.fit_transform(sent_tokens)
+    tfidf = TfidfVec.fit_transform(temp_sent_tokens)
     vals = cosine_similarity(tfidf[-1], tfidf)
     idx = vals.argsort()[0][-2]
     flat = vals.flatten()
     flat.sort()
     req_tfidf = flat[-2]
     if req_tfidf == 0:
-        robo_response = robo_response + "I am sorry! I don't understand you"
-        return robo_response
+        robo_response = "I am sorry! I don't understand you."
     else:
-        robo_response = robo_response + sent_tokens[idx]
-        return robo_response
+        robo_response = temp_sent_tokens[idx]
+    return robo_response
 
 
+# Chat loop
 flag = True
 print(
     "ROBO: My name is Robo. I will answer your queries about Chatbots. If you want to exit, type Bye!"
 )
-while flag == True:
-    user_response = input()
-    user_response = user_response.lower()
-    if user_response != "bye":
-        if user_response == "thanks" or user_response == "thank you":
-            flag = False
-            print("ROBO: You are welcome..")
-        else:
-            if greeting(user_response) != None:
-                print("ROBO: " + greeting(user_response))
-            else:
-                print("ROBO: ", end="")
-                print(response(user_response))
-                sent_tokens.remove(user_response)
-    else:
+
+while flag:
+    user_response = input().strip().lower()
+
+    if not user_response:
+        print("ROBO: Please say something!")
+        continue
+
+    if user_response in ("bye", "bye!", "goodbye"):
         flag = False
-        print("ROBO: Bye! take care..")
+        print("ROBO: Bye! Take care..")
+    elif user_response in ("thanks", "thank you"):
+        flag = False
+        print("ROBO: You are welcome..")
+    else:
+        greet = greeting(user_response)
+        if greet is not None:
+            print("ROBO: " + greet)
+        else:
+            print("ROBO: " + response(user_response))
