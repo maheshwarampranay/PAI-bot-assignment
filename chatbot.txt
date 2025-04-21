@@ -57,3 +57,166 @@ try:
     x = 1 / 0
 except ZeroDivisionError:
     print("Cannot divide by zero")
+
+Q: What is a variable in Python?
+A: A variable is a name that refers to a value in memory. Example: x = 10
+
+Q: What is the difference between `is` and `==` in Python?
+A: `is` checks if two variables point to the same object, while `==` checks if the values are the same.
+
+Q: How do you concatenate strings in Python?
+A: You can concatenate strings using the `+` operator. Example: "Hello" + " " + "World"
+
+Q: What are the different types of loops in Python?
+A: Python has two main types of loops: `for` and `while`.
+
+Q: What is a set in Python?
+A: A set is a collection of unique elements. Example: my_set = {1, 2, 3}
+
+Q: How do you reverse a string in Python?
+A: You can reverse a string using slicing. Example: s[::-1]
+
+Q: What is a class in Python?
+A: A class is a blueprint for creating objects. It defines properties and behaviors. Example:
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+Q: What is an object in Python?
+A: An object is an instance of a class. Example: p = Person("Alice")
+
+Q: What is the purpose of `self` in Python?
+A: `self` refers to the current instance of the class. It is used to access variables and methods within the class.
+
+Q: How do you create a list in Python?
+A: A list is created using square brackets. Example: my_list = [1, 2, 3]
+
+Q: What is the difference between `append()` and `extend()` in Python?
+A: `append()` adds an element to the end of a list, while `extend()` adds all elements from another iterable.
+
+Q: How can you remove an element from a list in Python?
+A: You can use `remove()` to delete an element by value, or `pop()` to delete an element by index.
+
+Q: What is the `len()` function in Python?
+A: `len()` is a built-in function that returns the length (number of items) of an object like a list, string, or dictionary.
+
+Q: How do you sort a list in Python?
+A: Use `sort()` to sort a list in place, or `sorted()` to return a new sorted list.
+
+Q: What is a lambda function in Python?
+A: A lambda function is an anonymous function defined using the `lambda` keyword. Example: f = lambda x, y: x + y
+
+Q: How do you create a tuple in Python?
+A: A tuple is created using parentheses. Example: my_tuple = (1, 2, 3)
+
+Q: What is a Python generator?
+A: A generator is a function that returns an iterable set of items, one at a time, using the `yield` keyword.
+
+Q: What is the `map()` function in Python?
+A: `map()` applies a given function to all items in an iterable (like a list) and returns an iterator.
+
+Q: What is the `filter()` function in Python?
+A: `filter()` filters the items in an iterable based on a given condition, returning an iterator.
+
+Q: What is the `reduce()` function in Python?
+A: `reduce()` applies a binary function cumulatively to the items in an iterable. It is part of the `functools` module.
+
+Q: What is the difference between `range()` and `xrange()` in Python 2?
+A: `range()` creates a list, while `xrange()` returns an iterator, saving memory.
+
+Q: How do you check if a key exists in a dictionary?
+A: You can use the `in` keyword. Example: `'key' in my_dict`
+
+Q: How do you merge two dictionaries in Python?
+A: Use the `update()` method or the `**` unpacking syntax in Python 3.5+.
+
+Q: What is the `yield` keyword in Python?
+A: `yield` is used in a function to return a generator. It allows the function to return multiple values, one at a time.
+
+Q: How do you handle multiple exceptions in Python?
+A: You can handle multiple exceptions by specifying them in a tuple. Example: 
+try:
+    pass
+except (TypeError, ValueError):
+    pass
+
+Q: What is a module in Python?
+A: A module is a file containing Python code. It can contain functions, classes, and variables.
+
+Q: What is the purpose of `__init__` method in Python?
+A: `__init__` is the constructor method of a class. It is used to initialize an object when it is created.
+
+Q: What is the `with` statement in Python?
+A: The `with` statement simplifies exception handling and resource management. Example: 
+with open('file.txt', 'r') as f:
+    data = f.read()
+
+Q: What is the difference between `del` and `pop()` in Python?
+A: `del` removes an item from a list by index, while `pop()` removes and returns the item from the list by index.
+
+Q: What is an `abstract class` in Python?
+A: An abstract class is a class that cannot be instantiated and is typically used as a base class. It requires that derived classes implement certain methods.
+
+Q: What is the `os` module used for in Python?
+A: The `os` module provides a way of interacting with the operating system, such as reading and writing files or working with directories.
+
+Q: What are decorators in Python?
+A: Decorators are functions that modify the behavior of other functions or methods. Example:
+@decorator
+def my_function():
+    pass
+
+Q: How do you create a custom exception in Python?
+A: You can create a custom exception by inheriting from the built-in `Exception` class. Example:
+class MyException(Exception):
+    pass
+
+Q: What are `args` and `kwargs` in Python functions?
+A: `*args` allows a function to take a variable number of non-keyword arguments, while `**kwargs` allows it to take a variable number of keyword arguments.
+
+Q: How do you check the type of an object in Python?
+A: Use the `type()` function. Example: `type(x)`
+
+Q: What is the `time` module in Python used for?
+A: The `time` module provides functions for working with time-related tasks, such as pausing execution or getting the current time.
+
+Q: How do you create a list comprehension in Python?
+A: List comprehensions are a concise way to create lists. Example: `[x * 2 for x in range(5)]`
+
+Q: How do you handle missing keys in a dictionary?
+A: You can use the `get()` method, which returns `None` (or a default value) if the key is not found. Example: `my_dict.get('key', 'default')`
+
+Q: What is the difference between `str()` and `repr()` in Python?
+A: `str()` is meant for user-friendly output, while `repr()` is meant for developers and produces a string that could be used to recreate the object.
+
+Q: How do you import a function from a module in Python?
+A: You can import a function using the `from` keyword. Example: `from math import sqrt`
+
+Q: What is the `random` module in Python used for?
+A: The `random` module provides functions for generating random numbers, selecting random elements, and shuffling sequences.
+
+Q: What is the purpose of `assert` in Python?
+A: `assert` is used to test if a condition is true. If it is not, it raises an `AssertionError`.
+
+Q: What is the difference between `==` and `is` operators in Python?
+A: `==` checks for value equality, while `is` checks if both variables refer to the same object in memory.
+
+Q: How do you convert a string to an integer in Python?
+A: You can use the `int()` function. Example: `x = int('10')`
+
+Q: How do you convert a string to a float in Python?
+A: You can use the `float()` function. Example: `x = float('10.5')`
+
+Q: What is the difference between `print()` and `return` in Python?
+A: `print()` displays output to the console, while `return` is used to send a value back from a function.
+
+Q: How do you iterate over a dictionary in Python?
+A: You can iterate over keys, values, or both. Example:
+for key, value in my_dict.items():
+    print(key, value)
+
+Q: How do you remove duplicates from a list in Python?
+A: You can convert a list to a set and back to a list to remove duplicates. Example: `list(set(my_list))`
+
+Q: How do you check if a string contains a substring?
+A: You can use the `in` keyword. Example: `'substring' in 'string'`
