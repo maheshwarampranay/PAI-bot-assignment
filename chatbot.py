@@ -17,9 +17,9 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 warnings.filterwarnings("ignore")
 
 # First-time setup – download required NLTK data
-nltk.download("punkt")
-nltk.download("wordnet")
-nltk.download("omw-1.4")
+#nltk.download("punkt")
+#nltk.download("wordnet")
+#nltk.download("omw-1.4")
 
 # Read the corpus
 with open("chatbot.txt", "r", encoding="utf8", errors="ignore") as fin:
